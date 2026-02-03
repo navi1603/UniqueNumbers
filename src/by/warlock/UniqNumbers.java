@@ -1,8 +1,5 @@
 package by.warlock;
 
-import by.warlock.interfaces.Reader;
-import by.warlock.interfaces.Writer;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,14 +9,12 @@ import java.util.List;
 import java.util.Set;
 
 public class UniqNumbers {
-    private Reader reader;
-    private Writer writer;
+    private int uniqNumbersSum;
 
     private List<Integer> inputNumbers;
     private Set<Integer> setNumbers;
     private List<Integer> dublicateNumbers;
 
-    private int uniqNumbersSum;
     private BufferedReader br;
 
     public UniqNumbers() {
@@ -29,25 +24,20 @@ public class UniqNumbers {
         br = new BufferedReader(new InputStreamReader(System.in));
     }
 
-    public UniqNumbers(Reader reader, Writer writer) {
-        this();
-        this.reader = reader;
-        this.writer = writer;
-    }
-
     public void start() throws IOException {
         System.out.println("""
                 Введите построчно целые числа.
                 Для завершения ввода оставьте строку пустой
                 и нажмите Enter.""");
 
+        String regExp = "^\\d+$";
+
         while (true) {
             String line = br.readLine().strip();
             if (!line.isEmpty()) {
-                if (line.matches("^\\d+$")) {
+                if (line.matches(regExp)) {
                     Integer number = Integer.parseInt(line);
                     inputNumbers.add(number);
-                    System.out.println("Вы ввели: " + line);
                 } else {
                     System.out.println("Неверный формат!\n" +
                             " Введите целое число.");
@@ -69,5 +59,6 @@ public class UniqNumbers {
                 uniqNumbersSum += number;
             }
         }
+
     }
 }
